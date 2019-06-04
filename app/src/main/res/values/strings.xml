@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">RxJavaDemo</string>
     <string name="on_error_return">onErrorReturn</string>
+    <string name="on_error_resume">onErrorResume</string>
 </resources>
