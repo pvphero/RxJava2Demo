@@ -1,0 +1,70 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+    defaultConfig {
+        applicationId rootProject.ext.android.applicationId
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        // your debug keystore配置debug.keystore &&release
+        //MD5:F2:11:6C:64:2F:E3:7F:02:3F:CB:45:0E:93:A1:E2:96
+        //SHA1:30:44:B7:F2:5E:3C:B7:3C:DE:F7:E8:8B:26:14:34:EC:82:9E:61:1A
+        release {
+            keyAlias 'key'
+            keyPassword '123456'
+            storeFile file('android_studio_key.jks')
+            storePassword '123456'
+        }
+        debug {
+            keyAlias 'key'
+            keyPassword '123456'
+            storeFile file('android_studio_key.jks')
+            storePassword '123456'
+        }
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
+    }
+    dataBinding {
+        enabled true
+    }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //android support
+    implementation rootProject.ext.support["junit"]
+    testImplementation rootProject.ext.support["appcompat-v7"]
+    implementation rootProject.ext.support["design"]
+    androidTestImplementation rootProject.ext.support["test-runner"]
+    androidTestImplementation rootProject.ext.support["test-espresso-core"]
+
+    //UI
+    implementation rootProject.ext.dependencies["rxandroid"]
+    implementation rootProject.ext.dependencies["rxjava"]
+
+    //UI
+    implementation rootProject.ext.android_ui["constraint-layout"]
+}
